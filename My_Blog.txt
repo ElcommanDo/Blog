@@ -1,0 +1,23 @@
+this website developed by Django framework with programming language python, 
+the name of our projest is My_Blog contains two main Apps Blog and User, 
+Blog App Contains :
+-static Directory which contains:
+    CSS,JS,Fonts(Tajawal), Images
+-templates:
+ index.html
+ detail.html
+ about.html
+ new_Post.html
+ delete_post.html
+ update_post.html
+ user_posts.html
+
+And User App contains:
+ Register.html
+ Login.html
+ logout.html
+ profile.html
+ update_profile.html
+
+  
+
