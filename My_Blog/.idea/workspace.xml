@@ -2,57 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9619081c-91dd-4d25-b249-3353e2ab5a4d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/My_Blog.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/Templates/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/Templates/blog/about.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/Templates/blog/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/Templates/blog/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/Templates/blog/latest_comments.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/Templates/blog/latest_posts.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/Templates/blog/new_post.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/Templates/blog/paginiation.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/Templates/blog/post_confirm_delete.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/Templates/blog/post_detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/Templates/blog/post_update.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/templatetags/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/templatetags/post_tag.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Blog/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/User/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/User/templates/user/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/User/templates/user/logout.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/User/templates/user/profile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/User/templates/user/profile_update.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/User/templates/user/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/User/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/default.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/profile_pics/67303271_859386131100879_6460335832065638400_n.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/profile_pics/67448004_339238487025944_4754149787282964480_n_1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/profile_pics/abdo.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/fonts/OFL.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/fonts/Tajawal-Black.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/fonts/Tajawal-Bold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/fonts/Tajawal-ExtraBold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/fonts/Tajawal-ExtraLight.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/fonts/Tajawal-Light.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/fonts/Tajawal-Medium.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/fonts/Tajawal-Regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/abdo.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/boy.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/mim-logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/fontawosome-all.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/jquery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/popper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blog/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Blog/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blog/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Blog/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Blog/views.py" afterDir="false" />
