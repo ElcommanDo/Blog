@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+{%load static%}
+{%block title%}
+مدونتى
+{%endblock%}
+
+{%block content%}
+{%if messages%}
+{%for message in messages%}
+<div class="alert alert-{{message.tags}}">
+    {{message}}
+</div>
+{%endfor%}
+{%endif%}
+
+{%for post in posts%}
+<div class = "border p-3 mb-3">
+
+    <img style="width:70px;height:70px;"
+         class="img-fluid rounded-circle border m-2"
+         src="{{post.author.profile.image.url}}"
+         alt="صورة الناشر"
+    >
+    <span class=text-secondary" >{{post.author.username}}</span>
+    <h6 class="text-secondary">نشر فى {{post.post_date|date:'d-m-Y'}}</h6>
+    <h3 ><a class="text-dark" href="{%url 'post_details' post.id %}" >{{post.title}}</a></h3>
+    <p>{{post.content}}</p>
+
+</div>
+
+{%endfor%}
+{% include 'blog/paginiation.html' with page=posts %}
+{%endblock%}
