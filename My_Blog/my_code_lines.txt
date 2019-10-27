@@ -1,0 +1,930 @@
+{%extends 'blog/base.html'%}
+{%load static%}
+{%block title%}
+about me
+{%endblock%}
+{%block content%}
+<div class="text-center rounded-circle">
+
+    <img src="{%static 'images/abdo.jpg' %}" width="290">
+
+
+    <p> عبد الرحمن مصطفى (commanDo)من مواليد شهر 8 1998 محافظه اسيوط طالب ب كليه الحاسبات والمعلومات
+    <br>
+        بدأت مشوارى الرياضى فى سن الحاديه عشر لعبت كاراتيه ثم انتقلت الى لعبة كره اليد ومنها انتقلت الى عالم الملاكمه
+        <br>
+        للتواصل معى ارسل لى رساله على حساب الفيسبوك الموجود فى وسائل التواصل الاجتماعى او تواصل معى عن طريق الهاتف
+        <br>
+        رقم الهاتق :
+        01067106891
+
+    </p>
+
+
+</div>
+{%endblock%}
+{% extends 'blog/base.html' %}
+{%load static%}
+{%load crispy_forms_tags%}
+{%block title%}
+{{post.title}}
+{%endblock%}
+{%block content%}
+<div class = "border p-3 mb-3">
+
+    <img  class="img-fluid rounded-circle border m-2" src="{{post.author.profile.image.url}}" width="70px">
+    <span class=text-secondary" >{{post.author.username}}</span>
+
+    <span class="text-secondary">نشر فى {{post.post_date|date:'d-m-Y'}}</span>
+   {%if post.author == user %}
+    <div class="form-group btn-edit">
+        <a class="btn btn-secondary" href="{% url 'post_update' post.id %}">تحرير</a>
+        <a class="btn btn-danger" href="{%url 'post_delete' post.id%}">حذف</a>
+    </div>
+    {%endif%}
+    <h3 >{{post.title}}</h3>
+    <p>{{post.content}}</p>
+
+</div>
+<div>
+    <h2 class="border-bottom mt-5 mb-3"> التعليقات({{comments.count}})</h2>
+    {% if comments%}
+    {%for comment in comments %}
+    <div class="mb-3 p-3 comment">
+      <h6 class="border-bottom p-2">({{comment.name}}) <span class="text-secondary"> {{comment.post_date|date:'d-m-Y'}}</span></h6>
+
+      <p class="mb-0">{{comment.body}}</p>
+        </div>
+    {%endfor%}
+    {%else%}
+    <div class="text-center mb-3 p-4 comment ">
+      <h5 class="mb-0">لايوجد تعليقات</h5>
+
+    </div>
+    {%endif%}
+
+</div>
+<h3 class="border-bottom pb-3 mb-3 mt-5">اضافه تعليق جديد </h3>
+<div class="mb-5 mt-4 border p-4">
+
+<form method="post">
+    {%csrf_token%}
+    {{comment_form|crispy}}
+    <button class="btn btn-success mt-3" type="submit"> اضافه تعليق </button>
+</form>
+
+</div>
+{%endblock%}
+{% extends 'blog/base.html' %}
+{%block title%}
+تدوينه جديده
+{%endblock%}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="border p-4 mb-5">
+    <legend class="border-bottom pb-1 mb-3">تدوينة جديدة</legend>
+    <form method="POST">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input class="btn btn-secondary mt-4" type="submit" value="نشر">
+    </form>
+</div>
+{% endblock content %}
+{%load static %}
+{% load post_tag%}
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="{%static 'images/favicon.ico' %}">
+    <title>{%block title%} {%endblock%}</title>
+
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css/styles.css'%}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header>
+<!-- start of navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"><img src="{%static 'images/mim-logo.png'%}"width="30px"alt="شعار مدونتى">
+      مدونتى
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="{%url 'home' %}">الرئيسيه<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          دوراتى
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">دوره php </a>
+          <a class="dropdown-item" href="#">دوره ديجيتال</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">قناتى</a>
+        </div>
+      </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{%url 'about' %}">من انا</a>
+        </li>
+
+    </ul>
+      <ul class="navbar-nav mr-auto">
+        {%if user.is_authenticated%}
+          <li class="nav-item"> <a class="nav-link" href="{%url 'new_post'%}">تدوينه جديده </a> </li>
+          <li class="nav-item"> <a class="nav-link" href="{% url 'profile'%}"> الملف الشخصى</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="{%url 'logout'%}"> خروج </a> </li>
+
+          {%else%}
+          <li class="nav-item"> <a class="nav-link" href="{%url 'login'%}">تسجيل دخول </a> </li>
+        <li class="nav-item"> <a class="nav-link" href="{% url 'register'%}">تسجيل </a> </li>
+         {%endif%}
+      </ul>
+  </div>
+</nav>
+<!-- end of navbar-->
+
+
+</header>
+
+<section>
+
+    <div class="container">
+        <div class="row mt-4">
+            <!--for blogs -->
+
+            <div class="col-md-8">
+             {% block content%}
+
+                {% endblock %}
+
+            </div>
+            <!--for side bar last 5 blogs -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <h3 class="text-center bg-secondary text-light p-2">أخر التدوينات</h3>
+                    {%latest_posts%}
+
+                </div>
+                  <div class="card mb-4 ">
+                    <h3 class="text-center bg-secondary text-light p-2">أخر التعليقات</h3>
+                  {% latest_comments %}
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+<!--Footer-->
+<footer class="bg-secondary">
+    <!-- to avoid scroll in footer we will make div container fluid-->
+    <div class="container-fluid">
+      <div class="row">
+       <div class="col-md">
+           <div class="card-group">
+               <div class="card m-3">
+                   <h3 class="card-title m-3 p-2 text-center border-bottom ">من انا </h3>
+                   <div class="card-body">
+                       <div class="text-center">
+                       <img src=" {%static 'images/Abdo.jpg' %}" width="100" alt="شعار مدونتى">
+                       </div>
+                     عبد الرحمن مصطفى طالب بكليه الحاسبات والمعلومات جامعه اسيوط
+                    <br>
+                    مطور مواقع ويب , يوتيوبر
+                    من مواليد 1998  محافظه اسيوط
+
+                </div>
+
+
+               </div>
+
+  <div class="card m-3">
+                   <h3 class="card-title m-3 p-2 text-center border-bottom ">
+                       فيديوهات هامه
+                   </h3>
+                   <div class="card-body">
+                     <ul>
+                         <li> <a target="_blank" href="https://www.youtube.com/watch?v=29O3YUpOFQ0">لمعرفه مرسل صراحه  </a></li>
+                         <li> <a target="_blank" href="https://www.youtube.com/watch?time_continue=1&v=5GmYcOE0ADU">اعرف مين بيزور بروفايلك </a></li>
+                         <li> <a target="_blank" href="https://www.youtube.com/watch?v=u52Q0VPzbWk">اعرف شكلك بعد 40 سنه</a></li>
+                         <li> <a target="_blank" href="https://www.youtube.com/channel/UCf_0sVfETbFjH73nAJBHe6w">قناتى ع اليوتيوب  </a></li>
+
+                     </ul>
+                   </div>
+
+
+  </div>
+           <div class="card m-3">
+                   <h3 class="card-title m-3 p-2 text-center border-bottom ">
+                     وسائل التواصل الاجتماعى
+                   </h3>
+                   <h4 class="card-body text-center">
+                       <!-- fab not fas because not solid but brand-->
+                       <a target="_blank" href="https://www.facebook.com/profile.php?id=100028193851579">
+                       <i  class="fab fa-facebook"></i>
+                           </a>
+                       <a target="_blank" href="https://twitter.com/ElcomanDo_box">
+                       <i class="fab fa-twitter"></i>
+                           </a>
+                       <a  href="#">
+                       <i class="fab fa-instagram"></i>
+                           </a>
+                       <a target="_blank" href="https://www.youtube.com/channel/UCf_0sVfETbFjH73nAJBHe6w">
+                       <i class="fab fa-youtube"></i>
+                           </a>
+
+                    </h4>
+
+
+  </div>
+           </div>
+
+
+       </div>
+      </div>
+      <div class="row p-2">
+        <div class="col-md text-center">
+
+         <small class="text-light">  جميع الحقوق محفوظه لدى &copy; </small>
+
+        </div>
+    </div>
+
+
+    </div>
+</footer>
+<!-- End Footer-->
+<script src="{%static 'js/jquery.js' %}"></script>
+<script src="{%static 'js/popper.js'%}"></script>
+<script src="{%static 'js/bootstrap.min.js'%}"></script>
+<script src="{%static 'js/fontawosome-all.js'%}"></script>
+</body>
+</html>
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="border p-4 mb-5">
+    <legend class="border-bottom pb-1 mb-3">حذف تدوينة</legend>
+    <form method="POST">
+        <legend class="pb-1 mb-3 mt-4">هل أنت متأكد من حذف "{{object.title}}" ؟</legend>
+        {% csrf_token %}
+        <input class="btn btn-danger mt-3" type="submit" value="حذف">
+        <a class="btn btn-secondary mt-3 back-btns" href="{% url 'post_details' object.id %}">تراجع</a>
+    </form>
+</div>
+{% endblock content %}
+{% extends 'blog/base.html' %}
+{%block title%}
+تدوينه جديده
+{%endblock%}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="border p-4 mb-5">
+    <legend class="border-bottom pb-1 mb-3">تحرير التدوينه</legend>
+    <form method="POST">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input class="btn btn-secondary mt-4" type="submit" value="تحديث">
+    </form>
+</div>
+{% endblock content %}
+{% extends 'blog/base.html' %}
+{%load static%}
+{%block title%}
+مدونتى
+{%endblock%}
+
+{%block content%}
+{%if messages%}
+{%for message in messages%}
+<div class="alert alert-{{message.tags}}">
+    {{message}}
+</div>
+{%endfor%}
+{%endif%}
+
+{%for post in posts%}
+<div class = "border p-3 mb-3">
+
+    <img style="width:70px;height:70px;"
+         class="img-fluid rounded-circle border m-2"
+         src="{{post.author.profile.image.url}}"
+         alt="صورة الناشر"
+    >
+    <span class=text-secondary" >{{post.author.username}}</span>
+    <h6 class="text-secondary">نشر فى {{post.post_date|date:'d-m-Y'}}</h6>
+    <h3 ><a class="text-dark" href="{%url 'post_details' post.id %}" >{{post.title}}</a></h3>
+    <p>{{post.content}}</p>
+
+</div>
+
+{%endfor%}
+{% include 'blog/paginiation.html' with page=posts %}
+{%endblock%}
+<ul class="list-group-flush latest-comment ">
+    {%for comment in l_comments%}
+    <li class="list-group-item latest-comment-item"> <a class="text-dark" href="{%url 'post_details' comment.post.id %}">{{comment.body}}</a></li>
+ {%empty%}
+    <li class="list-group-item latest-comment-item">لايوجد تعليقات  </li>
+    {%endfor%}
+</ul>
+<ul class="list-group-flush latest-post ">
+    {%for post in l_posts%}
+    <li class="list-group-item latest-post-item"> <a class="text-dark" href="{%url 'post_details' post.id %}">{{post.title}}</a></li>
+     {%endfor%}
+
+</ul>
+<div class=" pt-3 mt-4 mb-5 text-center">
+    {%if page.has_next%}
+    <a href="?page={{page.next_page_number}}" class="btn btn-secondary bg-secondary">التالى</a>
+   {%else%}
+    <a href="#" class="btn btn-secondary bg-secondary disabled">التالى</a>
+    {%endif%}
+            <span class="pr-4 pl-4">صفحه {{page.number}} من {{page.paginator.num_pages}}</span>
+      {%if page.has_previous%}
+            <a href="?page={{page.previous_page_number}}" class="btn btn-secondary bg-secondary">السابق</a>
+       {%else%}
+            <a href="#" class="btn btn-secondary bg-secondary disabled">السابق</a>
+        {%endif%}
+</div>
+@font-face {
+    font-family: 'Tajawal';
+    src: url('../fonts/Tajawal-Regular.ttf')  format("truetype"),
+         local('Tajawal');
+  }
+/* to make site arabic;
+*/
+
+html, body{
+    direction: rtl;
+    text-align: right;
+}
+
+body{
+    font-family: 'Tajawal', sans-serif;
+
+}
+.dropdown-menu .dropdown-item{
+text-align:right;
+}
+.btn-edit{
+    float:left;
+}
+.back-btns{
+    float: left;
+}
+
+.bg-secondary{
+background-color:#666;
+}
+.bg-light{
+background-color:#CCC;
+}
+.post{
+ border:1px solid #CCC;
+}
+.latest-post ,.latest-comment{
+padding:0 15px;
+}
+.latest-post .latest-post-item , .latest-comment .latest-comment-item{
+padding:6px;
+}
+.latest-post li:first-child , .latest-comment li:first-child{
+border-top:0;
+}
+.latest-post li:last-child , .latest-comment li:last-child{
+border-bottom:0;
+padding-bottom:0;
+
+}
+
+.comment{
+background-color:#f8f8f8;
+border: 1px dashed #CCC;
+}
+from django.urls import path
+from . import  views
+urlpatterns =[
+        path('',views.index,name='home'),
+        path('about/',views.about,name='about'),
+        path('post_details/<int:post_id>/',views.post_details,name='post_details'),
+        path('new_Post/',views.PostCreateView.as_view(),name='new_post'),
+        path('post_details/<slug:pk>/update/',views.PostUpdateView.as_view(),name='post_update'),
+        # slug must use pk not id
+        path('post_details/<slug:pk>/delete/',views.PostDeleteView.as_view(),name='post_delete'),
+
+
+
+
+    ]
+from django import forms
+from .models import comment,post
+class NewComment(forms.ModelForm):
+    class Meta:
+       model = comment
+       fields = ('name','email','body')
+
+class PostCreateForm(forms.ModelForm):
+    title = forms.CharField(label='عنوان التدوينه')
+    content = forms.CharField(label='نص التدوينه',widget=forms.Textarea)
+    class Meta:
+        model = post
+        fields = ('title','content')
+
+from django import template
+from Blog.models import post, comment
+
+register = template.Library()
+@register.inclusion_tag('blog/latest_posts.html')
+def latest_posts():
+    context = {
+        'l_posts': post.objects.all()[0:5],
+    }
+    return context
+
+
+@register.inclusion_tag('blog/latest_comments.html')
+def latest_comments():
+    context = {
+        'l_comments': comment.objects.filter(active=True)[:5],
+    }
+    return context
+from django.contrib import admin
+from.models import post,comment
+admin.site.register(post)
+admin.site.register(comment)
+# Register your models here.
+from django.db import models
+from django.contrib.auth.models import User
+from django.urls import reverse
+from django.utils import timezone
+
+# Create your models here.
+class post(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    post_date = models.DateTimeField(auto_now_add=True)
+    post_update = models.DateTimeField(default= timezone.now)
+    author = models.ForeignKey(User,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.title
+    def get_absolute_url(self):
+        # return '/detail/{}'.format(self.pk)
+        return reverse('post_details', args=[self.pk])
+
+    class Meta:
+        ordering = ('-post_date',)
+class comment(models.Model):
+    name = models.CharField(max_length=100 ,verbose_name='الاسم')
+    email = models.EmailField(verbose_name='البريد الالكترونى')
+    body = models.TextField(verbose_name='التعليق')
+    post_date = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+    post = models.ForeignKey(post, on_delete=models.CASCADE ,related_name='comments')
+    def __str__(self):
+        return self.name
+    class Meta:
+        ordering = ('-post_date',)
+
+
+from django.shortcuts import render,HttpResponse ,HttpResponseRedirect
+from .models import post , comment
+from .forms import NewComment,PostCreateForm
+from django.views.generic import CreateView,UpdateView,DeleteView
+# to make pagination bar
+from django.core.paginator import Paginator , PageNotAnInteger ,EmptyPage
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
+# Create your views here.
+posts = [
+    {'title':'التدوينه الاولى','body':'نص التدوينه الاولى كنص تجريبى ','author':'mohamed ali','date':'29-8-2019'}
+    ,
+    {'title':'التدوينه الثانيه','body':'نص التدوينه الثانيه كنص تجريبى ','author':'mohamed ali','date':'29-8-2019'}
+
+    ,
+    {'title':'التدوينه الثالثه','body':'نص التدوينه الثالثه كنص تجريبى ','author':'ahmed ali','date':'29-8-2019'}
+ ,
+     {'title':'التدوينه الرابعه','body':'نص التدوينه الرابعه كنص تجريبى ','author':'mohamed khaled','date':'29-8-2019'}
+
+    ,
+     {'title':'التدوينه الخامسه','body':'نص التدوينه الخامسه كنص تجريبى ','author':'mohamed ali','date':'29-8-2019'}
+
+,
+]
+def index(request):
+    posts = post.objects.all()
+    paginator = Paginator(posts,5)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_page)
+
+    context = {
+        'posts': posts,
+        'page': page,
+
+               }
+    return render(request,'blog/index.html',context)
+def about(request):
+    return render(request,'blog/about.html',{})
+def post_details(request,post_id):
+    post1 = post.objects.get(id=post_id)
+    comments =comment.objects.filter(post=post1,active=True)
+
+    if request.method == 'POST':
+        comment_form = NewComment(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post1
+            new_comment.save()
+            #Make form empty after taken request
+            comment_form = NewComment()
+
+    else:
+        comment_form = NewComment()
+    context = {'post':post1,'comments':comments , 'comment_form':comment_form}
+    return render(request,'blog/post_detail.html',context)
+class PostCreateView(LoginRequiredMixin,CreateView):
+    model = post
+    #fields = ['title','content']
+    template_name = 'blog/new_post.html'
+    form_class =PostCreateForm
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+class PostUpdateView(UserPassesTestMixin,LoginRequiredMixin,UpdateView):
+    model = post
+    template_name = 'blog/post_update.html'
+    form_class =PostCreateForm
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        else:
+            return False
+
+class PostDeleteView(UserPassesTestMixin,LoginRequiredMixin,DeleteView):
+    model = post
+    success_url = '/'
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        else:
+            return False
+    #after that we must make post confirm delete.html to redirct to it
+
+
+
+{% extends 'blog/base.html' %}
+{%load static%}
+{%load crispy_forms_tags%}
+{%block title%}
+{{title}}
+{%endblock%}
+{%block content%}
+{%if messages%}
+{%for message in messages%}
+<div class="alert alert-{{message.tags}}">
+    {{message}}
+</div>
+{%endfor%}
+{%endif%}
+<div class="mb-5 border p-4">
+    <h3 class="border-bottom pb-1 mb-3">تسجيل الدخول </h3>
+
+<form method="post">
+    {%csrf_token%}
+    {{form|crispy}}
+    <button class="btn btn-success mt-4" type="submit"> دخول   </button>
+</form>
+    <div class="border-top mt-4 pt-2">
+
+    <small>اذا لم يكن لديك حساب بالفعل يمكن التسجيل من هنا <a href="#">تسجيل </a> </small>
+
+    </div>
+
+</div>
+{%endblock%}
+{% extends 'blog/base.html' %}
+{%load static%}
+{%load crispy_forms_tags%}
+{%block title%}
+تسجيل الخروج
+{%endblock%}
+{%block content%}
+
+<div class="mb-5 border p-4">
+    <h3 class="">لقد تم تسجيل الخروج من المدونه </h3>
+
+
+</div>
+{%endblock%}
+{% extends 'blog/base.html' %}
+{%load static%}
+{%block title%}
+{{user.username}}
+{%endblock%}
+{%block content%}
+{%if messages%}
+{%for message in messages%}
+<div class="alert alert-{{message.tags}}">
+    {{message}}
+</div>
+{%endfor%}
+{%endif%}
+
+<div class="border p-4 mb-5">
+
+
+
+<div class="row">
+
+    <div class="col-md-3">
+      <img style="width:160px;height:175px;" class="img-fluid rounded-circle border m-2" src="{{user.profile.image.url}}" width="140px">
+    <div class= "m-4 ">
+        <a class="  btn btn-secondary bg-secondary" href="{%url 'profile_update'%}"><li class="fas fa-pen fa-xs"></li> تحرير </a>
+    </div>
+    </div>
+
+
+
+    <div class="col-md-9">
+
+    <h2 class="mb-3">{{user.username}} </h2>
+        <p class="font-weight-bold">الاسم : <span class="font-weight-normal">{{user.first_name}} {{user.last_name}} </span></p>
+        <p class="font-weight-bold">البريد الالكترونى : <span class="font-weight-normal">{{user.email}}</span></p>
+
+    </div>
+
+</div>
+    </div>
+<div class="row mb-5">
+
+    <div class="col-md">
+        <h3 class="border-bottom mb-4 pb-3">عدد التدوينات التى قمت بتدوينها </h3>
+
+        <h4 class="bg-secondary p-4 text-center text-light ">{{posts.count}}</h4>
+        <h3 class="border-bottom mt-5 pb-3 mb-4">تدويناتى </h3>
+       {%for post in posts_list%}
+        <ul class="pr-2">
+            <a href="{%url 'post_details' post.id%}" class="text-dark">{{post.title}}</a>
+
+        </ul>
+        {%empty%}
+        <h4 class="text-center mb-5"> لا توجد تدوينات </h4>
+        {%endfor%}
+          {% include 'blog/paginiation.html' with page=posts_list %}
+    </div>
+
+
+</div>
+{%endblock%}
+{% extends 'blog/base.html' %}
+{%block title%}
+تعديل الملف الشخصى
+{%endblock%}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="border p-4 mb-5">
+    <legend class="border-bottom pb-1 mb-3">تعديل الملف الشخصي</legend>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{user_form|crispy}}
+        <!-- {{profile_form|crispy}} -->
+        <div>
+            <span class="mb-2" style="display: block">صورة الملف الشخصي *</span>
+            الصورة الحالية: <a href="{{user.profile.image.url}}">{{user.profile.image}}</a>
+            <br>
+            <label for="image" class="btn btn-outline-secondary mt-2">اختيار الصورة</label>
+            <input type="file" name="image" id="image" accept="image/*" style="display: none">
+        </div>
+        <input class="btn btn-secondary mt-4" type="submit" value="تعديل">
+    </form>
+</div>
+{% endblock content %}
+{% extends 'blog/base.html' %}
+{%load static%}
+{%load crispy_forms_tags%}
+{%block title%}
+{{title}}
+{%endblock%}
+{%block content%}
+
+<div class="mb-5 border p-4">
+    <h3 class="border-bottom pb-1 mb-3">التسجيل </h3>
+
+<form method="post">
+    {%csrf_token%}
+    {{form|crispy}}
+    <button class="btn btn-success mt-4" type="submit"> تسجيل  </button>
+</form>
+<div class="border-top mt-4 pt-2">
+
+    <small>اذا كان لديك حساب بالفعل يمكن تسجيل الدخول <a href="#">تسجيل دخول </a> </small>
+
+</div>
+</div>
+{%endblock%}
+from django import forms
+from.models import profile
+from django.contrib.auth.models import User
+class UserCreationForm(forms.ModelForm):
+    username = forms.CharField(label='اسم المستخدم',max_length=100, help_text='يجب الا يحتوى الاسم على مسافات ')
+    email = forms.EmailField(label='البريد الالكترونى')
+    first_name = forms.CharField(label='الاسم الأول ',max_length=100)
+    last_name = forms.CharField(label='الاسم الأخير',max_length=100)
+    password1 = forms.CharField(label='كلمه المرور',min_length=8,max_length=20,widget=forms.PasswordInput(),help_text='يجب الا تقل كلمه المرور عن 8 احرف')
+    password2 = forms.CharField(label='تأكيد كلمه المرور',min_length=8,max_length=20,widget=forms.PasswordInput())
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'first_name', 'last_name', 'password1','password2')
+    #to amke sure that password1 is equal to password2
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd['password2'] != cd['password1']:
+            raise forms.ValidationError('كلمه المرور غير متطابقه!!')
+        return cd['password2']
+    def clean_username(self):
+        cd = self.cleaned_data
+        if User.objects.filter(username=cd['username']).exists():
+            raise forms.ValidationError('اسم المستخدم موجود بالفعل جرب اسم اخر ')
+        return cd['username']
+
+class LoginForm(forms.ModelForm):
+    username = forms.CharField(label='اسم المستخدم',max_length=100)
+    password = forms.CharField(label='كلمه المرور',widget=forms.PasswordInput())
+    class Meta:
+        model = User
+        fields = ('username','password')
+
+class UserUpdateForm(forms.ModelForm):
+    username = forms.CharField(label='اسم المستخدم',max_length=100)
+    password = forms.CharField(label='كلمه المرور',widget=forms.PasswordInput())
+    first_name = forms.CharField(label='الاسم الأول')
+    last_name = forms.CharField(label='الاسم الأخير')
+    email = forms.EmailField(label='البريد الإلكتروني')
+
+    class Meta:
+        model = User
+        fields = ('username','password','first_name', 'last_name', 'email')
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = profile
+        fields = ('image',)
+
+from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from PIL import Image
+# Create your models here.
+class profile(models.Model):
+    image = models.ImageField(default='default.jpg',upload_to='profile_pics')
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    def __str__(self):
+        return '{} profile'.format(self.user.username)
+    #this function to make image with less resolution to save time and space in db
+    def save(self,*args,**kwargs):
+        super().save()
+        img = Image.open(self.image.path)
+        if img.width > 300 or img.height >300 :
+            size = (300, 300)
+            img.thumbnail(size)
+            img.save(self.image.path)
+#this function to make profile added to adminstration dashboared
+#we there used  signals post_save
+def create_profile(sender,**kwargs):
+        if kwargs['created']:
+            user_profile = profile.objects.create(user=kwargs['instance'])
+
+post_save.connect(create_profile,sender=User)
+
+from django.urls import path
+from .views import register,login_user, logout_user,profile,profile_update
+#to use omages from database by url  we must add media root and media url
+from django.conf import settings
+urlpatterns = [
+    path('register/', register, name='register'),
+    path('login/',login_user ,name='login'),
+    path('logout/',logout_user ,name='logout'),
+    path('profile/',profile ,name='profile'),
+    path('profile_update/',profile_update, name='profile_update'),
+
+
+]
+
+
+from django.shortcuts import render, redirect
+from .forms import UserCreationForm,LoginForm,ProfileUpdateForm,UserUpdateForm
+from django.contrib import messages
+from Blog.models import post
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login,logout,authenticate
+from django.core.paginator import Paginator , PageNotAnInteger ,EmptyPage
+
+# Create your views here.
+def register(request):
+
+    if request.method=='POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            new_user = form.save(commit=False)
+            new_user.set_password(form.cleaned_data['password1'])
+            new_user.save()
+
+
+            username = form.cleaned_data['username']
+            messages.success(request,'تهانينا{}لقد تم التسجيل بنجاح '.format(username))
+            return redirect('login')
+
+           # messages.success(request,f'تهانينا {username}لقد تم التسجل بنجاح ')
+
+
+
+    else:
+        form = UserCreationForm()
+
+    return render(request,'user/register.html',{'title':'التسجيل','form':form})
+def login_user(request):
+    if request.method =='POST':
+        form = LoginForm()
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request,username=username,password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('profile')
+        else:
+            messages.warning(request,'اسم المستخدم او كلمه المرور خطأ ')
+    else:
+        form = LoginForm()
+    return render(request,'user/login.html',{'title':'تسجيل الدخول ','form':form})
+def logout_user(request):
+    logout(request)
+    return render(request,'user/logout.html',{})
+#to make sure that user is logged in and redirect him to login page by login_url
+@login_required(login_url='login')
+def profile(request):
+
+    posts = post.objects.filter(author=request.user)
+    paginator = Paginator(posts,5)
+    page = request.GET.get('page')
+    try:
+        posts_list = paginator.page(page)
+    except PageNotAnInteger:
+        posts_list = paginator.page(1)
+    except EmptyPage:
+        posts_list = paginator.page(paginator.num_page)
+
+    return render(request,'user/profile.html',{'posts':posts,'posts_list':posts_list,'page': page})
+@login_required(login_url='login')
+def profile_update(request):
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(
+            request.POST,request.FILES, instance=request.user.profile)
+        if user_form.is_valid and profile_form.is_valid:
+            user_update = user_form.save(commit=False)
+            user_update.set_password(user_form.cleaned_data['password'])
+            user_update.save()
+            profile_form.save()
+
+            messages.success(
+                request, 'تم تحديث الملف الشخصي.')
+            return redirect('profile')
+    else:
+         user_form = UserUpdateForm(instance=request.user)
+         profile_form = ProfileUpdateForm(instance=request.user.profile)
+    return render(
+        request, 'user/profile_update.html',
+                 {'user_form': user_form,
+                 'profile_form': profile_form})
+
+############################
+   without bootstrap.css and js lines that i used pure code lines that i wrote it 927 line

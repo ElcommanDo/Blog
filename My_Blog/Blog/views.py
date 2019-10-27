@@ -1,10 +1,10 @@
 from django.shortcuts import render,HttpResponse ,HttpResponseRedirect
 from .models import post , comment
 from .forms import NewComment,PostCreateForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView,UpdateView,DeleteView
 # to make pagination bar
 from django.core.paginator import Paginator , PageNotAnInteger ,EmptyPage
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # Create your views here.
 posts = [
